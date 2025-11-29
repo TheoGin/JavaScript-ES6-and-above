@@ -1,5 +1,4 @@
-/* const p = new Promise(() => {});
-console.log(p); // Promise { <pending> } */
+
 
 const p = new Promise((resolve, reject) => {
   console.log("开始百米短跑");
