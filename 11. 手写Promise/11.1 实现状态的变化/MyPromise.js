@@ -5,64 +5,56 @@ const REJECTED = "rejected";
 class MyPromise {
 
   /**
-   * 立即执行函数
-   * @param{ Function } executor
+   * 创建一个 Promise
+   * @param{ Function } executor 任务执行器，立即执行函数
    */
   constructor(executor) {
-    this._state = PENDING;
-    this._value = undefined;
+    this._state = PENDING; // 状态
+    this._value = undefined; // 数据
     try {
-      executor(this.resolve.bind(this), this.reject.bind(this)); // 可能会报错
+      executor(this._resolve.bind(this), this._reject.bind(this)); // 可能会报错
     } catch (e) {
-      this.reject(e);
+      this._reject(e);
     }
   }
 
   /**
    * 修改状态和值
-   * @param{ PENDING | FULFILLED | REJECTED } state
+   * @param{ PENDING | FULFILLED | REJECTED } newState
    * @param { any } value
    */
-  changeState(state, value) {
+  changeState(newState, value) {
     // 状态不可逆
     if (this._state !== PENDING) {
       return;
     }
-    this._state = state;
+    this._state = newState;
     this._value = value;
   }
 
   /**
-   * 成功状态的任务
-   * @param { any } data
+   * 标记当前任务完成
+   * @param { any } data 任务完成的相关数据
    */
-  resolve(data) {
+  _resolve(data) {
     // 修改状态和值
     this.changeState(FULFILLED, data);
   }
 
   /**
-   * 拒绝状态的任务
-   * @param { any } reason
+   * 标记当前任务失败
+   * @param { any } reason 任务失败的相关原因
    */
-  reject(reason) {
+  _reject(reason) {
     // 修改状态和值
-    this.changeState(FULFILLED, reason);
+    this.changeState(REJECTED, reason);
   }
 
 }
 
-/*const promise = new Promise((resolve, reject) => {
-  reject(new Error("err"));
-}).then((data) => {
-  console.log(data);
-}).catch((reason) => {
-  console.log(reason);
-});*/
-
 const myPromise = new MyPromise((resolve, reject) => {
   resolve(1);
-  reject(new Error("err"));
+  // reject(2);
   // throw new Error("err");
 });
 console.log(myPromise);
