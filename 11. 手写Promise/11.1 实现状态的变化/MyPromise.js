@@ -58,20 +58,4 @@ const myPromise = new MyPromise((resolve, reject) => {
   throw new Error("err");
 });
 console.log(myPromise);
-/*
-MyPromise { _state: 'fulfilled', _value: 1 }
-MyPromise { _state: 'rejected', _value: 2 }
-MyPromise {
-  _state: 'rejected',
-  _value: Error: err
-      at D:\DuYi\2、JavaScript\code\JavaScript-ES6-and-above\11. 手写Promise\11.1 实现状态的变化\MyPromise.js:58:9
-      at new MyPromise (D:\DuYi\2、JavaScript\code\JavaScript-ES6-and-above\11. 手写Promise\11.1 实现状态的变化\MyPromise.js:15:7)
-      at Object.<anonymous> (D:\DuYi\2、JavaScript\code\JavaScript-ES6-and-above\11. 手写Promise\11.1 实现状态的变化\MyPromise.js:55:19)
-      at Module._compile (node:internal/modules/cjs/loader:1254:14)
-      at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
-      at Module.load (node:internal/modules/cjs/loader:1117:32)
-      at Module._load (node:internal/modules/cjs/loader:958:12)
-      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
-      at node:internal/main/run_main_module:23:47
-}
-* */
+
