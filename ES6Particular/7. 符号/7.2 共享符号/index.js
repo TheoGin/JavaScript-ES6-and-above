@@ -22,7 +22,9 @@ const obj1 = {
 const obj2 = {
   c: 1,
   d: 2,
-  [Symbol.for('share-prop')]: 111,
+  [Symbol.for('share-prop')]: 112,
 };
 console.log(obj1); // {a: 1, b: 2, Symbol(share-prop): 111}
-console.log(obj2); // {c: 1, d: 2, Symbol(share-prop): 111}
+console.log(obj2); // {c: 1, d: 2, Symbol(share-prop): 112}
+
+console.log(obj2[Symbol.for('share-prop')]); // 112
