@@ -31,3 +31,11 @@ console.log(hero.hit());
 /*
  const getRandom = Symbol("getRandom");
  console.log(hero[getRandom]()); // Uncaught TypeError: hero[getRandom] is not a function*/
+
+console.log(hero); // {attack: 32, healthPoint: 12, defense: 11}
+// const ownPropertySymbols = Object.getOwnPropertySymbols(hero); // Symbol(getRandom) 在原型上，所有要获取原型的getOwnPropertySymbols
+// const ownPropertySymbols = Object.getOwnPropertySymbols(Object.getPrototypeOf(hero));
+const symbols = Object.getOwnPropertySymbols(Hero.prototype); // hero.prototype错误写法
+console.log(symbols); // [Symbol(getRandom)]
+const getRandom = hero[symbols[0]];
+console.log(getRandom(1, 2));

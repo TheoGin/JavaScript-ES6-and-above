@@ -47,6 +47,7 @@ const ownPropertySymbols = Object.getOwnPropertySymbols(obj);
 console.log(ownPropertySymbols); // [Symbol(prop)]
 const prop = ownPropertySymbols[0];
 console.log(obj[prop]); // 22
+console.log(ownPropertySymbols[0] === symbolProp); // true
 
 // ----------- 4. end -----------
 
