@@ -11,10 +11,12 @@
       const iterator = {
         i: 1, // 当前的迭代次数
         total: 3, // 可迭代3次
+        // 1. next方法：用于得到下一个数据
         next() {
+          // JS规定，如果一个对象具有next方法，并且该方法返回一个对象。则认为该对象是一个迭代器
           const obj = { // 当前这一次迭代到的数据
-            value: this.i > this.total ? undefined : this.i,
-            done: this.i > this.total,
+            value: this.i > this.total ? undefined : this.i, // value：下一个数据的值
+            done: this.i > this.total, // done：boolean，是否迭代完成
           };
 
           this.i++;
