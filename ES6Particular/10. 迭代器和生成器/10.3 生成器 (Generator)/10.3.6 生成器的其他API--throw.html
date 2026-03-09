@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      function* method() {
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      const generator = method();
+      console.log(generator.next()); // {value: 1, done: false}
+
+      // 2. throw方法：调用该方法，可以在生成器中产生一个错误
+      console.log(generator.throw(new Error('出错了'))); // Uncaught Error: 出错了
+      // throw后，程序结束，后面代码不会再运行
+      console.log(generator.next());
+    </script>
+  </body>
+</html>

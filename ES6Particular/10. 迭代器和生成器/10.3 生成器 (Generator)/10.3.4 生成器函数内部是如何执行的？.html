@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      function* method() {
+        console.log("第1次运行");
+        // 每次调用生成器的next方法，将导致生成器函数运行到下一个yield关键字位置
+        yield 1;
+        console.log("第2次运行");
+        // yield是一个关键字，该关键字只能在生成器函数内部使用，表达“产生”一个迭代数据。
+        yield 2;
+        console.log("第3次运行");
+        yield 3;
+      }
+
+      const generator = method(); // 并不会导致：method执行
+      /* console.log(generator.next());
+       // 第1次运行
+       // {value: 1, done: false} */
+
+      /* let next = generator.next();
+       while (!next.done) {
+         const item = next.value;
+         console.log(item);
+         next = generator.next();
+       } */
+
+      for (const item of generator) {
+        console.log(item);
+      }
+      /*
+       第1次运行
+       1
+       第2次运行
+       2
+       第3次运行
+       3
+      *  */
+    </script>
+  </body>
+</html>

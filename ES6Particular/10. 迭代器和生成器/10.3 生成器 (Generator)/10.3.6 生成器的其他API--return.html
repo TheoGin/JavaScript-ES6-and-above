@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      function* method() {
+        yield 1;
+        yield 2;
+        yield 3;
+      }
+
+      const generator = method();
+      console.log(generator.next()); // {value: 1, done: false}
+
+      // 1. return方法：调用该方法，可以提前结束生成器函数，从而提前让整个迭代过程结束
+      console.log(generator.return(10)); // {value: 10, done: true}
+      console.log(generator.next()); // {value: undefined, done: true}
+    </script>
+  </body>
+</html>
