@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 要输出斐波拉契数列的前N位
+      // 一个无限的斐波拉契数列 1 1 2 3 5 8 13 21
+      function* createFeiboIterator() {
+        let
+          i = 0, // 当前取到斐波拉契的第几位了，从 0 开始
+          prev1 = 1,
+          prev2 = 1;
+        return {
+          next: function* () {
+            i++;
+            if (i === 1 || i === 2) {
+              yield 1;
+              /* return {
+                 value: 1,
+                 done: false,
+               }; */
+            }
+            const value = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = value;
+
+            yield value;
+            /* return {
+               value,
+               done: false, // 永远为 false
+             }; */
+          },
+        };
+      }
+
+      const generator = createFeiboIterator();
+      /* for (let i = 0; i < 5; i++) {
+        console.log(iterator.next());
+      } */
+    </script>
+  </body>
+</html>
