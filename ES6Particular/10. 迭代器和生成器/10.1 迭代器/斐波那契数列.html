@@ -10,6 +10,7 @@
       // 要输出斐波拉契数列的前N位
       // 一个无限的斐波拉契数列 1 1 2 3 5 8 13 21
       const iterator = {
+        // 也可以写成函数createFeiboIterator，然后返回一个对象，这样下面三个就可以定义成变量
         i: 0, // 当前取到斐波拉契的第几位了，从 0 开始
         prev1: 1,
         prev2: 1,
@@ -31,6 +32,7 @@
           };
         },
       };
+
       for (let i = 0; i < 10; i++) {
         console.log(iterator.next().value);
       }
