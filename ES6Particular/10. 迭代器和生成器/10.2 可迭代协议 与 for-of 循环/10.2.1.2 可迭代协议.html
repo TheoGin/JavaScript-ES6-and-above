@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 可迭代对象
+      const obj = {
+        name: "Sophotheo",
+        age: 18,
+        [Symbol.iterator]() {
+          let i = 0;
+          return {
+            next: () => {
+              const keys = Object.keys(this);
+              const propName = keys[i++];
+              const propValue = this[propName];
+              return {
+                value: {
+                  propName,
+                  propValue,
+                },
+                done: i > keys.length,
+              };
+            },
+          };
+        },
+      };
+
+      for (const item of obj) {
+        console.log(item);
+        // {propName: 'name', propValue: 'Sophotheo'}
+        // {propName: 'age', propValue: 18}
+      }
+    </script>
+  </body>
+</html>
