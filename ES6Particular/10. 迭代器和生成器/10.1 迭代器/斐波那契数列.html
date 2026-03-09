@@ -7,8 +7,10 @@
   </head>
   <body>
     <script>
+      // 要输出斐波拉契数列的前N位
+      // 一个无限的斐波拉契数列 1 1 2 3 5 8 13 21
       const iterator = {
-        i: 0,
+        i: 0, // 当前取到斐波拉契的第几位了，从 0 开始
         prev1: 1,
         prev2: 1,
         next() {
@@ -20,13 +22,13 @@
             };
           }
           const value = this.prev1 + this.prev2;
-          const obj = {
-            value: value,
-            done: false, // 永远为 false
-          };
           this.prev1 = this.prev2;
           this.prev2 = value;
-          return obj;
+
+          return {
+            value,
+            done: false, // 永远为 false
+          };
         },
       };
       for (let i = 0; i < 10; i++) {

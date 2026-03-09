@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 创建一个用户迭代数组的迭代器
+      function iteratorCreator(arr) {
+        // i 也可以在这里定义
+        return {
+          i: 0, // 下标从0开始迭代
+          next() {
+            return { // 当前这一次迭代到的数据
+              value: arr[this.i++],
+              done: this.i > arr.length,
+            };
+          }
+          /* next() {
+            const result = {
+              value: arr[this.i],
+              done: this.i >= arr.length,
+            };
+            this.i++;
+
+            return result;
+          } */
+        }
+      }
+
+      const arr = [1,2,3];
+      const iterator = iteratorCreator(arr);
+      // 一个一个迭代，直到不能迭代位置
+      let next = iterator.next();
+      while (!next.done) {
+        // 若当前迭代的数据不是迭代器的结束
+        // 如果当前还有数据
+        const item = next.value;
+        console.log(item);
+        next = iterator.next();
+      }
+    </script>
+  </body>
+</html>

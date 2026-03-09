@@ -7,9 +7,10 @@
   </head>
   <body>
     <script>
+      // 可无限迭代的随机数
       const iterator = {
         next() {
-          return {
+          return { // 当前这一次迭代到的数据
             value: Math.random(),
             done: false, // 永远为 false
           };

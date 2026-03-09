@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // obj满足可迭代协议
+      // obj可被迭代
+      const obj = {
+        [Symbol.iterator]: function () {
+        // [Symbol.iterator]() {
+          return {
+            i: 1,
+            total: 3,
+            next() {
+              const result = { // 当前这一次迭代到的数据
+                value: this.i > this.total ? undefined : this.i,
+                done: this.i > this.total,
+              };
+              this.i++;
+              return result;
+            },
+          };
+        },
+      };
+      // 对象本身可以展开到对象，但是如果没有 [Symbol.iterator]: function (){...} 就会报错 Uncaught TypeError: obj is not iterable
+      console.log([...obj]);
+
+      // 模拟for-of循环
+      const iterator = obj[Symbol.iterator]();
+      let next = iterator.next();
+      while (!next.done) {
+        // 有数据
+        const item = next.value;
+        console.log(item); // 执行循环体
+        next = iterator.next();
+      }
+
+      for (const item of obj) {
+        console.log(item);
+      }
+    </script>
+  </body>
+</html>
