@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      const iterator = {
+        i: 0,
+        prev1: 1,
+        prev2: 1,
+        next() {
+          this.i++;
+          if (this.i === 1 || this.i === 2) {
+            return {
+              value: 1,
+              done: false, // 永远为 false
+            };
+          }
+          const value = this.prev1 + this.prev2;
+          const obj = {
+            value: value,
+            done: false, // 永远为 false
+          };
+          this.prev1 = this.prev2;
+          this.prev2 = value;
+          return obj;
+        },
+      };
+      for (let i = 0; i < 10; i++) {
+        console.log(iterator.next().value);
+      }
+    </script>
+  </body>
+</html>
