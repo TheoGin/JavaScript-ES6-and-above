@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      function* method() {
+        const num = yield 1;
+        console.log('num: ', num);
+        const newNum = yield num + 2;
+        console.log('newNum: ', newNum);
+
+        return 111;
+      }
+
+      const generator = method();
+      // 3). 第一次调用next方法时，传参没有任何意义
+      console.log(generator.next(123)); // {value: 1, done: false}
+
+      // 2). 调用生成器的next方法时，可以传递参数，传递的参数会交给yield表达式的返回值
+      console.log(generator.next(10));
+      /*
+      num:  10
+      {value: 12, done: false}
+      */
+    </script>
+  </body>
+</html>

@@ -7,31 +7,25 @@
   </head>
   <body>
     <script>
-      function* test(num) {
-        yield 11 + num;
-        yield 22 + num;
-        return num
+      function* test() {
+        yield 'a';
+        yield 'b';
       }
 
       function* method() {
         // 4). 在生成器函数内部，可以调用其他生成器函数，但是要注意加上*号
-        yield *test(10);
-        const num = yield 1;
-        console.log("num: ", num);
-        const newNum = yield num + 2;
-        console.log("newNum: ", newNum);
-
-        return 111;
+        yield *test(); // 会参与生成
+        yield 1;
+        yield 2;
+        yield 3;
       }
 
       const generator = method();
-      console.log(generator.next()); // {value: 21, done: false}
-      console.log(generator.next()); // {value: 32, done: false}
+      console.log(generator.next()); // {value: 'a', done: false}
+      console.log(generator.next()); // {value: 'b', done: false}
       console.log(generator.next()); // {value: 1, done: false}
-      // num:  100
-      console.log(generator.next(100)); // {value: 102, done: false}
-      // newNum:  200
-      console.log(generator.next(200)); // {value: 111, done: true}
+      console.log(generator.next()); // {value: 2, done: false}
+      console.log(generator.next()); // {value: 3, done: true}
     </script>
   </body>
 </html>
