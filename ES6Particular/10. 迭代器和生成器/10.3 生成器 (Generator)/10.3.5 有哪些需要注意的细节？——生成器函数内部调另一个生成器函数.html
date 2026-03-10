@@ -10,11 +10,13 @@
       function* test() {
         yield 'a';
         yield 'b';
+        return 111;
       }
 
       function* method() {
-        // 4). 在生成器函数内部，可以调用其他生成器函数，但是要注意加上*号
-        yield *test(); // 会参与生成
+        // 如果是yield* 函数()调用生成器函数，则该函数的返回结果，为该表达式的结果
+        const valueReturn = yield *test(); // 会参与生成
+        console.log('valueReturn', valueReturn);
         yield 1;
         yield 2;
         yield 3;
@@ -23,6 +25,7 @@
       const generator = method();
       console.log(generator.next()); // {value: 'a', done: false}
       console.log(generator.next()); // {value: 'b', done: false}
+      // valueReturn 111
       console.log(generator.next()); // {value: 1, done: false}
       console.log(generator.next()); // {value: 2, done: false}
       console.log(generator.next()); // {value: 3, done: true}
