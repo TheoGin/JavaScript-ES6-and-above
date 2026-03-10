@@ -47,6 +47,25 @@
         }
       }
 
+      /* function run(generatorFunc) {
+        const generator = generatorFunc();
+        let next = generator.next(); // 启动任务（开始迭代）, 得到迭代数据
+        while (true) {
+          // 错误写法 因为在处理异步的时候，next.done一直为 false，就会导致死循环
+          if (next.done) {
+            break
+          }
+          console.log(next);
+          if (typeof next.value.then === "function") {
+            next.value.then(value => {
+              next = generator.next(value);
+            });
+          } else {
+            // 2. 迭代的数据是其他数据，直接进行下一次迭代
+            next = generator.next(next.value);
+          }
+        }
+      } */
     </script>
   </body>
 </html>
