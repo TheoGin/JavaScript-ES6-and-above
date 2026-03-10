@@ -9,33 +9,38 @@
     <script>
       function* task() {
         const value1 = yield 1;
-        console.log(value1);
+        console.log(value1); // 1
         const value2 = yield new Promise(resolve => {
           setTimeout(() => {
             resolve(2);
           }, 1000);
         });
-        console.log(value2);
+        console.log(value2); // 2
       }
 
       run(task);
 
-      function run(task) {
-        const generator = task();
-        let next = generator.next();
+      function run(generatorFunc) {
+        const generator = generatorFunc();
+        let next = generator.next(); // 启动任务（开始迭代）, 得到迭代数据
         handleNext();
 
+        // 对 next 进行处理
         function handleNext() {
           if (next.done) {
-            return;
+            return; // 迭代完成，不处理
           }
+
+          // 迭代没有完成，分为两种情况
           if (typeof next.value.then === "function") {
-            // Promise
+            // 1. 迭代的数据是一个Promise
+            //  等待Promise完成后，再进行下一次迭代
             next.value.then(value => {
               next = generator.next(value);
               handleNext();
             });
           } else {
+            // 2. 迭代的数据是其他数据，直接进行下一次迭代
             next = generator.next(next.value);
             handleNext();
           }
