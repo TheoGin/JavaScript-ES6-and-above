@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      const int8Array = new Int8Array([100, 1, 2, 3, 4]);
+
+      // 1. 不能增加和删除数据，类型化数组的长度固定
+      int8Array[6] = 100;
+      console.log(int8Array); // Int8Array(5) [100, 1, 2, 3, 4, buffer: ArrayBuffer(5), byteLength: 5, byteOffset: 0, length: 5, Symbol(Symbol.toStringTag): 'Int8Array']
+
+      delete int8Array[0];
+      console.log(int8Array); // Int8Array(5) [100, 1, 2, 3, 4, buffer: ArrayBuffer(5), byteLength: 5, byteOffset: 0, length: 5, Symbol(Symbol.toStringTag): 'Int8Array']
+
+      // 2. 一些返回数组的方法，返回的数组是同类型化的新数组
+      const doubleInt8Array = int8Array.map(item => item * 2); // map映射后的类型和之前保持一致，超出范围会溢出
+      // 预期：[200, 2, 4, 6, 8]
+      console.log(doubleInt8Array); // Int8Array(5) [-56, 2, 4, 6, 8, buffer: ArrayBuffer(5), byteLength: 5, byteOffset: 0, length: 5, Symbol(Symbol.toStringTag): 'Int8Array']
+
+      for (const doubleInt8ArrayElement of doubleInt8Array) {
+        console.log(doubleInt8ArrayElement);
+      }
+    </script>
+  </body>
+</html>

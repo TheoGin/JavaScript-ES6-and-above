@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      const int8Array = new Int8Array([128, -129, 1, 2, 3]);
+      // 超出范围会溢出
+      console.log(int8Array); // Int8Array(5) [-128, 127, 1, 2, 3, buffer: ArrayBuffer(5), byteLength: 5, byteOffset: 0, length: 5, Symbol(Symbol.toStringTag): 'Int8Array']
+
+
+    </script>
+  </body>
+</html>

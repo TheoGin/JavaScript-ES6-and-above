@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      const int8Array = new Int8Array(10);
+      console.log(int8Array); // Int8Array(10) [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, buffer: ArrayBuffer(10), byteLength: 10, byteOffset: 0, length: 10, Symbol(Symbol.toStringTag): 'Int8Array']            10个 0，非稀松数组
+      console.log(int8Array.length); // 10
+
+      // 数组.byteLength：得到占用的字节数
+      console.log(int8Array.byteLength); // 10 B
+      console.log(10 * 8 / 8); // 10 * 8 bit = 10 B
+
+      const array = new Array(10);
+      console.log(array); // [empty × 10]     稀松数组
+      console.log(array.length); // 10
+      console.log(10 * 64 / 8); // 10 * 64 bit = 640 bit = 80 B
+    </script>
+  </body>
+</html>
