@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 使用DataView：通常会在需要混用多种存储格式时使用DataView
+      const arrayBuffer = new ArrayBuffer(10); // 创建了一个用于存储 10 个字节的内存空间
+      // console.log(arrayBuffer); // ArrayBuffer(10)
+
+      // new (buffer: ArrayBufferLike & { BYTES_PER_ELEMENT?: never; }, byteOffset?: number, byteLength?: number): DataView;
+      // const dataView = new DataView(arrayBuffer); // DataView(10)
+      // const dataView = new DataView(arrayBuffer, 1); // DataView(9)
+
+      // 从下面偏移量 1 开始，然后 操作 3 个
+      const dataView = new DataView(arrayBuffer, 1, 3);
+      console.log(dataView); // DataView(3)
+      console.log(dataView.buffer === arrayBuffer); // true
+      console.log(dataView.byteOffset); // 1
+      console.log(dataView.byteLength); // 3
+
+      dataView.setInt8(1, 10)
+      console.log(dataView.getInt8(1)); // 10
+
+      // 获取不同int位数的数据，会出问题
+      console.log(dataView.getInt16(1)); // 2560
+
+    </script>
+  </body>
+</html>

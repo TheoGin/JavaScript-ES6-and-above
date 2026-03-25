@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 用同一个Buffer创建出来的类型化数组
+      const arrayBuffer = new ArrayBuffer(10); // 10个字节的内存
+      const int8Array = new Int8Array(arrayBuffer);
+      const int16Array = new Int16Array(arrayBuffer);
+
+      console.log(int8Array === int16Array); // false
+      console.log(int8Array.buffer === int16Array.buffer); // true
+
+      int8Array[0] = 5;
+      // 一个地方改了，两个数组都变了
+      console.log(int8Array[0]); // 5
+      console.log(int16Array[0]); // 5
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 使用类型化数组：实际上，每一个类型化数组都对应一个ArrayBuffer，如果没有手动指定ArrayBuffer，类型化数组创建时，会新建一个ArrayBuffer
+      const int8Array = new Int8Array(10);
+      console.log(int8Array); // Int8Array(10) [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, buffer: ArrayBuffer(10), byteLength: 10, byteOffset: 0, length: 10, Symbol(Symbol.toStringTag): 'Int8Array']
+      console.log(int8Array.buffer); // ArrayBuffer(10)
+    </script>
+  </body>
+</html>

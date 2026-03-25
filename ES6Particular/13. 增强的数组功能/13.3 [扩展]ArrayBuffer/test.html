@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // new (byteLength: number): ArrayBuffer;
+      const arrayBuffer = new ArrayBuffer(10); // 创建了一个用于存储10个字节的内存空间
+      console.log(arrayBuffer); // ArrayBuffer(10)
+      console.log(arrayBuffer.byteLength); // 10
+
+      // 可以通过属性byteLength得到字节数，可以通过方法slice得到新的ArrayBuffe
+      // slice(begin: number, end?: number): ArrayBuffer; 下标从 0 开始
+      const arrayBuffer35 = arrayBuffer.slice(3, 5);
+      console.log(arrayBuffer35); // ArrayBuffer(2)byteLength: 2maxByteLength: 2[[Prototype]]: ArrayBuffer[[Int8Array]]: Int8Array(2)[[Uint8Array]]: Uint8Array(2)[[Int16Array]]: Int16Array(1)[[ArrayBufferByteLength]]: 2[[ArrayBufferData]]: 7
+    </script>
+  </body>
+</html>
