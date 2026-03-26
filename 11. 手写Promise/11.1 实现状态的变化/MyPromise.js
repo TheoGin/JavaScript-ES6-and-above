@@ -2,6 +2,29 @@ const PENDING = "pending";
 const FULFILLED = "fulfilled";
 const REJECTED = "rejected";
 
+/**
+ * 将回调放入微任务
+ * @param callback { Function } 回调函数
+ */
+function runMircoTask(callback) {
+  if (process && process.nextTick) {
+    process.nextTick(callback)
+  } else if (MutationObserver) {
+    const mutationObserver = new MutationObserver(callback);
+    const p = document.createElement("p");
+    mutationObserver.observe(p, {
+      childList: true,
+    });
+    p.innerHTML = "1";
+  } else {
+    setTimeout(callback, 0)
+  }
+}
+runMircoTask(() => {
+  console.log(1);
+})
+console.log(process.nextTick);
+
 class MyPromise {
 
   /**
@@ -50,12 +73,25 @@ class MyPromise {
     this.changeState(REJECTED, reason);
   }
 
+  /**
+   * 放入微任务
+   * @param onFulfilled { Function } 成功任务回调
+   * @param onRejected { Function } 失败任务回调
+   * @returns {MyPromise}
+   */
+  then(onFulfilled, onRejected) {
+    return new MyPromise((resolve, reject) => {
+      runMircoTask(onFulfilled)
+    })
+  }
+
 }
 
-const myPromise = new MyPromise((resolve, reject) => {
+/*const myPromise = new Promise((resolve, reject) => {
   // resolve(1);
   // reject(2);
   throw new Error("err");
-});
-console.log(myPromise);
+})
+  .then((value)=>{}, (reason)=>{});
+console.log(myPromise);*/
 
