@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      async function test() {
+        const response = await fetch("./img/liao.jpg");
+
+        // Uncaught (in promise) SyntaxError: Unexpected token '�', "����
+        // const data = await response.json(); // 二进制数据，不能用 json 解析
+        const blob = await response.blob();
+        console.log(blob); // Blob {size: 5655, type: 'image/jpeg'}
+
+        // arrayBuffer(): Promise<ArrayBuffer>; 可以拿到 ArrayBuffer
+        const arrayBuffer = await blob.arrayBuffer();
+        console.log(arrayBuffer); // ArrayBuffer(5655)
+        // 为什么比 100 * 117 * 4 = 46800 个数据少呢？因为图片是经过压缩的
+        console.log(arrayBuffer.byteLength); // 5655
+
+        // new (buffer: ArrayBufferLike, byteOffset?: number, length?: number): Int8Array;
+        const int8Array = new Int8Array(arrayBuffer, 3, 2); // 可以通过 类型化数组 进行操作
+        console.log(int8Array); // Int8Array(2) [-32, 0, buffer: ArrayBuffer(5655), byteLength: 2, byteOffset: 3, length: 2, Symbol(Symbol.toStringTag): 'Int8Array']
+      }
+
+      test();
+    </script>
+  </body>
+</html>
