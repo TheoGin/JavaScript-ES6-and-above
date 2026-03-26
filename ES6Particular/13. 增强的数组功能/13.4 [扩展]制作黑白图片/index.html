@@ -8,35 +8,64 @@
   <body>
     <div style="display: flex">
       <img src="./img/liao.jpg" alt="">
-      <button>转换</button>
+      <button onclick="translateToGray()">转换</button>
       <!-- canvas 会有默认的宽和高是 300*150 -->
-      <canvas style="width: 100px; height: 117px"></canvas>
+      <!-- <canvas style="width: 100px; height: 117px"></canvas> -->
+      <!-- 通过属性设置宽高，而不是通过样式设置宽高 -->
+      <canvas width="100" height="117"></canvas>
     </div>
     <script>
-      const button = document.querySelector("button");
-      const canvas = document.querySelector("canvas");
+      /*
+       * 画布中的1个图像是由多个像素点组成，每个像素点拥有4个数据：红、绿、蓝、alpha
+       * 把一个图像变成黑白，只需要将图像的每个像素点设置成为红绿蓝的平均数即可
+       */
+
+      /* const canvas = document.querySelector("canvas");
       const img = document.querySelector("img");
-      button.onclick = function () {
+      const button = document.querySelector("button");
+      button.onclick = function () { */
+      function translateToGray() {
+        // 放到局部作用域中
+        const canvas = document.querySelector("canvas");
+        const img = document.querySelector("img");
+
         console.log(canvas);
+        // getContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;
         const ctx = canvas.getContext("2d");
+
+        // drawImage(image: CanvasImageSource, dx: number, dy: number): void;
         ctx.drawImage(img, 0, 0);
 
-        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        // 得到画布某一个区域的图像信息
+        // getImageData(sx: number, sy: number, sw: number, sh: number, settings?: ImageDataSettings): ImageData;
+        const imageData = ctx.getImageData(0, 0, img.width, img.height); // 矩形左上角坐标，右下角坐标
+
+        /**每个像素点拥有4个数据：红、绿、蓝、alpha
+         * 100 * 117 * 4 = 46800 个数据
+         * Uint8Array：46800 * 8 bit = 46800 B = 46.8 KB
+         * 普通数组：100 * 117 * 4 * 64 bit = 2995200 bit = 365.625 KB (2995200 / 8 / 1024) 特别浪费内存
+         */
         // console.log(imageData); // ImageData {data: Uint8ClampedArray(46800)[21, 19, 22, 255, 24, 22, 25, 255, 26, 25, 28, 255, ...], width: 100, height: 117, colorSpace: 'srgb', pixelFormat: 'rgba-unorm8'}
         const data = imageData.data;
         for (let i = 0; i < data.length; i += 4) {
+          // 循环一个像素点
           const red = data[i];
           const green = data[i + 1];
           const blue = data[i + 2];
 
           // 拿到三个平均数，即灰度值
-          const average = (red + green + blue) / 3;
-          data[i] = average;
+          const average = (red + green + blue) / 3; // 如果除出来不是整数，Uint8ClampedArray会进行处理
+          /* data[i] = average;
           data[i + 1] = average;
-          data[i + 2] = average;
+          data[i + 2] = average; */
+          data[i] = data[i + 1] = data[i + 2] = average;
         }
-        console.log(data);
-      };
+        console.log(data); // Uint8ClampedArray(46800) [21, 21, 21, 255, 24, 24, 24, 255, 26, 26, 26, 255, …]
+
+        // 将图像数据设置到画布
+        // putImageData(imagedata: ImageData, dx: number, dy: number): void;
+        ctx.putImageData(imageData, 0, 0)
+      }
     </script>
   </body>
 </html>
