@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      async function getProvinces() {
+        const requestConfig = {
+          method: "get",
+          headers: {
+            'Content-Type': 'application/json',
+            a: 1,
+          }
+        };
+
+        // function fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+        try {
+          const response = await fetch("https://study.duyiedu.com/api/citylist", requestConfig);
+
+          // 1. 当收到服务器的返回结果后，Promise 进入 resolved 状态（包含服务器返回的404、403等），状态数据为 Response 对象
+          const data = await response.json();
+          console.log(data); // {code: 0, msg: '', data: Array(35)}
+        } catch (e) {
+          // 2. 当网络发生错误（或其他导致无法完成交互的错误）时，Promise 进入 rejected 状态，状态数据为错误信息
+          // GET https://study.duyiedu.com/api/citylist net::ERR_INTERNET_DISCONNECTED 网络问题：如 断网了
+          console.log(e.message); // Failed to fetch
+        }
+      }
+
+      getProvinces();
+    </script>
+  </body>
+</html>
