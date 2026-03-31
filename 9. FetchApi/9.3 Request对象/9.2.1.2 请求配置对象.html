@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      async function getProvinces() {
+        const requestConfig = {
+          // 1. method：字符串，请求方法，默认值 GET
+          method: "POST",
+          // 2. headers：对象，请求头信息
+          headers: {
+            "Content-Type": "application/json",
+            test: 1,
+          },
+          // 3. body: 请求体的内容，必须匹配请求头中的 Content-Type
+          body: `{ 'a': 123 }`, // 或者用 JSON.stringify({ a: 123 })
+        };
+
+        // const response = await fetch("https://study.duyiedu.com/api/citylist", requestConfig); // 等价于下面两行
+        // 除了使用基本的fetch方法，还可以通过创建一个Request对象来完成请求（实际上，fetch的内部会帮你创建一个Request对象）
+        const request = new Request("https://study.duyiedu.com/api/citylist", requestConfig); // new Request(url地址, 配置)
+        console.log(request); // Request { body: ReadableStream, bodyUsed: true, cache: "default", credentials: "same-origin", duplex: "half", headers: Headers {}, method: "POST", mode: "cors", redirect: "follow", referrer: "about:client", signal: AbortSignal {aborted: false, reason: undefined, onabort: null}, targetAddressSpace: "unknown", url: "https://study.duyiedu.com/api/citylist"}
+        /*
+         {
+           body: ReadableStream,
+           bodyUsed: true,
+           // 4. mode：字符串，请求模式 type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
+           //   4.1. cors：默认值，配置为该值，会在请求头中加入 origin 和 referer
+           //   4.2. no-cors：配置为该值，不会在请求头中加入 origin 和 referer，跨域的时候可能会出现问题
+           //   4.3. same-origin：指示请求必须在同一个域中发生，如果请求其他域，则会报错
+           mode: "cors",
+
+           // 5. credentials: 如何携带凭据（cookie） type RequestCredentials = "include" | "omit" | "same-origin";
+           //   5.1. omit：默认值，不携带 cookie
+           //   5.2. same-origin：请求同源地址时携带 cookie（保证安全）
+           //   5.3. include：请求任何地址都携带 cookie
+           credentials: "same-origin",
+
+           // 6. cache：配置缓存模式 type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
+           //   6.1. default: 表示 fetch 请求之前将检查下 http 的缓存.
+           //   6.2. no-store: 表示 fetch 请求将完全忽略 http 缓存的存在. 这意味着请求之前将不再检查下 http 的缓存, 拿到响应后, 它也不会更新 http 缓存.
+           //   6.3. no-cache: 如果存在缓存, 那么 fetch 将发送一个条件查询 request 和一个正常的 request, 拿到响应后, 它会更新 http 缓存.
+           //   6.4. reload: 表示 fetch 请求之前将忽略 http 缓存的存在, 但是请求拿到响应后, 它将主动更新 http 缓存.
+           //   6.5. force-cache: 表示 fetch 请求不顾一切的依赖缓存, 即使缓存过期了, 它依然从缓存中读取. 除非没有任何缓存, 那么它将发送一个正常的 request.
+           //   6.6. only-if-cached: 表示 fetch 请求不顾一切的依赖缓存, 即使缓存过期了, 它依然从缓存中读取. 如果没有缓存, 它将抛出网络错误(该设置只在 mode 为”same-origin”时有效).
+           cache: "default",
+
+           duplex: "half",
+           headers: Headers {},
+           method: "POST",
+           redirect: "follow",
+           referrer: "about:client",
+           signal: AbortSignal {aborted: false, reason: undefined, onabort: null},
+           targetAddressSpace: "unknown",
+           url: "https://study.duyiedu.com/api/citylist"
+         }
+
+         *  */
+        const response = await fetch(request);
+        const data = await response.json();
+        console.log(data);
+      }
+
+      getProvinces();
+    </script>
+  </body>
+</html>

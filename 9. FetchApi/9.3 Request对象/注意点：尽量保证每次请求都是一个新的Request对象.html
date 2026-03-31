@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      let request = null;
+      function getRequest() {
+        /*
+        // 不要这样写
+         if (!request) {
+          return request;
+        } */
+        // 注意点：尽量保证每次请求都是一个新的Request对象。因为如果有进度条，会共用，污染其他的请求
+        request = new Request("https://study.duyiedu.com/api/citylist", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        
+        // 如果有一样的配置，可以拷贝一份一样的
+        return request.clone();
+      }
+
+      fetch(getRequest()).then(response => response.json()).then(data => {
+        console.log(data); // {code: 0, msg: '', data: Array(35)}
+      });
+    </script>
+  </body>
+</html>
