@@ -9,10 +9,12 @@
     <script>
       function getResponse() {
         // new(body?: BodyInit | null, init?: ResponseInit): Response;
-        return new Response(`
-        { "id": 1, "city": "北京" },
-        { "id": 2, "city": "深圳" },
-        `, {
+        // return new Response(`{ "id": 1, "city": "北京" }, { "id": 2, "city": "深圳" }=`,
+        return new Response(`[
+          { "id": 1, "city": "北京" },
+          { "id": 2, "city": "深圳" }
+        ]`,
+          {
           status: 200,
           ok: true,
         });
@@ -24,7 +26,7 @@
 
       async function getCities() {
         const response = await getResponse();
-        console.log("response", response);
+        console.log("response", response); // response Response {type: 'default', url: '', redirected: false, status: 200, ok: true,…}
         const data = await getJson(response);
         console.log("data", data);
       }
