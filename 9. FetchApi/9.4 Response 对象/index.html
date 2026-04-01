@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      function getResponse() {
+        // new(body?: BodyInit | null, init?: ResponseInit): Response;
+        return new Response(`
+        { "id": 1, "city": "北京" },
+        { "id": 2, "city": "深圳" },
+        `, {
+          status: 200,
+          ok: true,
+        });
+      }
+
+      async function getJson(response) {
+        return await response.json();
+      }
+
+      async function getCities() {
+        const response = await getResponse();
+        console.log("response", response);
+        const data = await getJson(response);
+        console.log("data", data);
+      }
+
+      getCities();
+    </script>
+  </body>
+</html>
