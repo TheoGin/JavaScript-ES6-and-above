@@ -6,6 +6,44 @@
     <title>Title</title>
   </head>
   <body>
+    <input type="file" name="avatar" id="avatar">
+    <button id="upload">上传</button>
+    <img src="" alt="" id="preview">
+    <script>
+      const input = document.getElementById("avatar");
+      const button = document.getElementById("upload");
+      const img = document.getElementById("preview");
 
+      input.onchange = async function (e) {
+        // console.log(input.files);
+        const files = e.target.files;
+        // console.log(files); // File {name: 'f1.jpg', lastModified: 1754291000000, lastModifiedDate: Mon Aug 04 2025 15:03:20 GMT+0800 (中国标准时间), webkitRelativePath: '', size: 375052, …}
+
+        // 做校验
+        if (files.length === 0) {
+          return;
+        }
+      };
+
+      async function uploadFile() {
+        const headers = new Headers({
+          "content-type": "multipart/form-data",
+        });
+
+        const request = new Request("http://localhost:9527/api/upload", {
+          method: "POST",
+          headers,
+          body: new FormData(input.files[0]),
+        });
+        const response = await fetch(request);
+        console.log(response);
+        const result = await response.json();
+        console.log(result);
+        img.src = result.path;
+        return result;
+      }
+
+      button.onclick = uploadFile;
+    </script>
   </body>
 </html>
