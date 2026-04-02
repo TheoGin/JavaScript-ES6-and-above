@@ -6,7 +6,10 @@
     <title>Title</title>
   </head>
   <body>
-    <input type="file" name="avatar" id="avatar">
+    <!-- <input type="file" name="imagefile" id="avatar"> -->
+    <!-- 不需要设置 name 属性，在 formData 中设置 key 即可 -->
+    <input type="file" id="avatar">
+    <!-- <input type="file" id="avatar"> -->
     <button id="upload">上传</button>
     <img src="" alt="" id="preview">
     <script>
@@ -14,36 +17,57 @@
       const button = document.getElementById("upload");
       const img = document.getElementById("preview");
 
-      input.onchange = async function (e) {
-        // console.log(input.files);
-        const files = e.target.files;
-        // console.log(files); // File {name: 'f1.jpg', lastModified: 1754291000000, lastModifiedDate: Mon Aug 04 2025 15:03:20 GMT+0800 (中国标准时间), webkitRelativePath: '', size: 375052, …}
-
-        // 做校验
-        if (files.length === 0) {
-          return;
-        }
-      };
-
       async function uploadFile() {
         const headers = new Headers({
           "content-type": "multipart/form-data",
         });
+        if (input.files.length === 0) {
+          alert("请选择文件");
+          return;
+        }
+        const formData = new FormData();
+        formData.append("imagefile", input.files[0]);
+        /*
+         ------WebKitFormBoundaryF0CLg4ZqLgdAbSil
+         Content-Disposition: form-data; name="imagefile"; filename="f1.jpg"
+         Content-Type: image/jpeg
 
-        const request = new Request("http://localhost:9527/api/upload", {
+        ……（二进制数据）
+         ------WebKitFormBoundaryF0CLg4ZqLgdAbSil--
+        *  */
+
+        /* const request = new Request("http://localhost:9527/api/upload", {
           method: "POST",
-          headers,
-          body: new FormData(input.files[0]),
+          // headers, // Error: Multipart: Boundary not found 不需要自己写 headers，自己写，没有 boundary
+          // body: new FormData(input.files[0]),
+          body: formData,
         });
-        const response = await fetch(request);
+        const response = await fetch(request); */
+        const response = await fetch("http://localhost:9527/api/upload", {
+          method: "POST",
+          // body: new FormData(input.files[0]),
+          body: formData, // 使用 FormData 时，浏览器会自动设置正确的 content-type 为 multipart/form-data; boundary=----WebKitFormBoundaryF0CLg4ZqLgdAbSil
+        });
         console.log(response);
         const result = await response.json();
-        console.log(result);
+        console.log(result); // {path: 'http://localhost:9527/upload/fbf74da010c9baa5cd11ca26e3b32e0e.jpg'}
         img.src = result.path;
         return result;
       }
 
       button.onclick = uploadFile;
+
+      /* input.onchange = async function (e) {
+       // console.log(input.files);
+       const files = e.target.files;
+       // console.log(files); // File {name: 'f1.jpg', lastModified: 1754291000000, lastModifiedDate: Mon Aug 04 2025 15:03:20 GMT+0800 (中国标准时间), webkitRelativePath: '', size: 375052, …}
+
+       // 做校验
+       if (files.length === 0) {
+       return;
+       }
+       }; */
+
     </script>
   </body>
 </html>
