@@ -7,6 +7,7 @@ class MySet {
       return;
     }
 
+    // 验证是否是可迭代的对象
     if (typeof iterable[Symbol.iterator] !== "function") {
       throw new TypeError(`${ typeof iterable } ${ iterable } is not iterable (cannot read property Symbol(Symbol.iterator))`);
     }
@@ -14,6 +15,10 @@ class MySet {
     for (const item of iterable) {
       this.add(item);
     }
+  }
+
+  get size() {
+    return this._data.length;
   }
 
   add(value) {
@@ -32,6 +37,11 @@ class MySet {
     return false;
   }
 
+  /**
+   * 判断两个数据是否相等
+   * @param {*} value1
+   * @param {*} value2
+   */
   isEqual(value1, value2) {
     // 严格相等 不区分 +0 和 -0
     if (value1 === 0 && value2 === 0) {
