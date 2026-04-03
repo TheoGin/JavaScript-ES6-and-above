@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+
+      const set = new Set([1, 2, 3]);
+      console.log(set[Symbol.iterator]()); // SetIterator {1, 2, 3}
+
+      for (const item of set) {
+        console.log(item);
+      }
+      /**
+       * 1
+       * 2
+       * 3
+       */
+
+      // forEach(callbackfn: (value: T, value2: T, set: Set<T>) => void, thisArg?: any): void;
+      set.forEach((value, value2, set) => {
+        console.log(`
+value: ${ value },
+value2: ${ value2 },
+value === value2: ${ value === value2 },
+set: ${ set }`);
+      });
+      // 注意：set集合中不存在下标，因此forEach中的回调的第二个参数和第一个参数是一致的，均表示set中的每一项
+      console.log(set[1]); // undefined
+      /*
+       value: 1,
+       value2: 1,
+       value === value2: true,
+       set: [object Set]
+
+       value: 2,
+       value2: 2,
+       value === value2: true,
+       set: [object Set]
+
+       value: 3,
+       value2: 3,
+       value === value2: true,
+       set: [object Set]
+       *  */
+    </script>
+  </body>
+</html>
