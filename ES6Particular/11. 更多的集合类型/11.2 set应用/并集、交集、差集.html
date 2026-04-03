@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 两个数组的并集、交集、差集 （不能出现重复项），得到的结果是一个新数组
+      const arr1 = [11, 22, 33, 44, 55, 22, 33];
+      const arr2 = [22, 33, 66, 77, 88];
+
+      // 1、并集
+      // 1.1 使用扩展运算符和Set构造函数
+      console.log(new Set([...arr1, ...arr2])); // Set(8) {11, 22, 33, 44, 55, 66, 77, 88}
+      // 1.2 使用concat方法和 Set构造函数
+      console.log(new Set(arr1.concat(arr2))); // Set(8) {11, 22, 33, 44, 55, 66, 77, 88}
+
+      // 2、交集
+      const set1 = new Set(arr1);
+      // 2.1 使用indexOf方法
+      console.log([...set1].filter(item => arr2.indexOf(item) > -1)); // [22, 33]
+      // 2.2 使用includes方法
+      console.log([...set1].filter(item => arr2.includes(item))); // [22, 33]
+      // 2.3 使用has方法
+      const set2 = new Set(arr2);
+      console.log([...set1].filter(item => set2.has(item))); // [22, 33]
+
+      // 3、差集
+      // 3.1 使用 并集 - 交集
+      const unionArr = [...new Set([...arr1, ...arr2])]; // [11, 22, 33, 44, 55, 66, 77, 88]
+      const intersectionArr = [...set1].filter(item => set2.has(item)); // [22, 33]
+      console.log(unionArr.filter(item => intersectionArr.indexOf(item) === -1)); // [11, 44, 55, 66, 77, 88]
+      console.log(unionArr.filter(item => !intersectionArr.includes(item))); // [11, 44, 55, 66, 77, 88]
+
+      // 3.2 使用 并集 和 数组includes方法
+      console.log(unionArr.filter(item => arr1.includes(item) && !arr2.includes(item) || !arr1.includes(item) && arr2.includes(item))); // [11, 44, 55, 66, 77, 88]
+
+      // 3.2 使用 并集 和 数组indexOf方法
+      console.log(unionArr.filter(item => arr1.indexOf(item) > -1 && arr2.indexOf(item) === -1 || arr1.indexOf(item) === -1 && arr2.indexOf(item) > -1)); // [11, 44, 55, 66, 77, 88]
+
+    </script>
+  </body>
+</html>
