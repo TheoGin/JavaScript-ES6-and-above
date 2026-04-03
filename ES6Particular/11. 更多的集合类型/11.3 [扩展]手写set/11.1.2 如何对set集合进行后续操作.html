@@ -6,8 +6,9 @@
     <title>Title</title>
   </head>
   <body>
+    <script src="./MySet.js"></script>
     <script>
-      const set = new Set();
+      const set = new MySet();
       // 传入的都是数据，而不是下标
       // 1. add(value: T): this;: 添加一个数据到set集合末尾，如果数据已存在，则不进行任何操作
       set
@@ -19,7 +20,7 @@
       // 1.1 set使用Object.is的方式判断两个数据是否相同，但是，针对+0和-0，set认为是相等
       set.add(+0);
       set.add(-0); // 无效
-      console.log(set); // Set(3) { 1, 2, 3, 0}
+      console.log(set._data); // MySet(3) { 1, 2, 3, 0}
 
       // 2. has(value: T): boolean;: 判断set中是否存在对应的数据
       console.log(set.has(123)); // false
@@ -28,14 +29,14 @@
       // 3. delete(value: T): boolean：删除匹配的数据，返回是否删除成功
       console.log(set.delete(1)); // true
       console.log(set.delete(1)); // false
-      console.log(set); // Set(2) {2, 3, 0}
+      console.log(set._data); // MySet(2) {2, 3, 0}
 
       // 4. clear(): void：清空整个set集合
       set.clear();
-      console.log(set); // Set(0) {}
+      console.log(set._data); // MySet(0) {}
 
       // 5. readonly size: number: 获取set集合中的元素数量，只读属性，无法重新赋值
-      console.log("总数为：", set.size); // 总数为： 0
+      console.log("总数为：", set._data.length); // 总数为： 0
 
 
     </script>

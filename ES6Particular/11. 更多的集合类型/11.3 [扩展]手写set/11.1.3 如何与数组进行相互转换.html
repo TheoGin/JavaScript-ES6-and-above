@@ -6,9 +6,10 @@
     <title>Title</title>
   </head>
   <body>
+    <script src="./MySet.js"></script>
     <script>
 
-      const set = new Set([1, 2, 3]);
+      const set = new MySet([1, 2, 3]);
       console.log(set[Symbol.iterator]()); // SetIterator {1, 2, 3}
 
       // set本身也是一个可迭代对象，每次迭代的结果就是每一项的值

@@ -4,8 +4,7 @@ class MySet {
   constructor(iterable) {
     if (iterable === undefined) {
       this._data = [];
-      this.size = 0;
-      return
+      return;
     }
 
     if (typeof iterable[Symbol.iterator] !== "function") {
@@ -18,12 +17,9 @@ class MySet {
   }
 
   add(value) {
-    for (const item of this._data) {
-      if (!this.has(value)) {
-        this._data.push(value);
-      }
+    if (!this.has(value)) {
+      this._data.push(value);
     }
-
     return this;
   }
 
@@ -59,6 +55,10 @@ class MySet {
     for (const item of this._data) {
       callback(item, item, this);
     }
+  }
+
+  clear() {
+    this._data.length = 0;
   }
 
   * [Symbol.iterator]() {

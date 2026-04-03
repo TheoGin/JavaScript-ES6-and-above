@@ -6,12 +6,13 @@
     <title>Title</title>
   </head>
   <body>
+    <script src="./MySet.js"></script>
     <script>
 
       const str = 'abcdeabca';
-      /* const set = new Set(str);
+      /* const set = new MySet(str);
       const noRepeatString = Array.from(set).join(''); */
-      const noRepeatString = [...new Set(str)].join('');
+      const noRepeatString = [...new MySet(str)].join('');
       console.log(noRepeatString); // abcde
     </script>
   </body>
