@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+
+      const str = 'abcdeabca';
+      /* const set = new Set(str);
+      const noRepeatString = Array.from(set).join(''); */
+      const noRepeatString = [...new Set(str)].join('');
+      console.log(noRepeatString); // abcde
+    </script>
+  </body>
+</html>

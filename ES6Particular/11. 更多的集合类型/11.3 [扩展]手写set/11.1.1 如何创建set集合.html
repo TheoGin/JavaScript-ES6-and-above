@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script src="./MySet.js"></script>
+    <script>
+      const emptySet = new MySet();
+      console.log(emptySet); // MySet(0) {size: 0}
+
+      const set = new MySet([1, 2, 3, 4, 5]);
+      console.log(set); // MySet(5) {1, 2, 3, 4, 5}
+
+      const str = 'abcdeabab';
+      console.log(str[Symbol.iterator]()); // StringIterator {}
+      const charSet = new MySet(str); // 字符串也是可迭代对象
+      console.log(charSet); // MySet(5) {'a', 'b', 'c', 'd', 'e'}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+
+      const set = new Set([1, 2, 3]);
+      console.log(set[Symbol.iterator]()); // SetIterator {1, 2, 3}
+
+      // set本身也是一个可迭代对象，每次迭代的结果就是每一项的值
+      const arr = [...set];
+      console.log(arr); // [1, 2, 3]
+
+      console.log(Array.from(set)); // [1, 2, 3]
+    </script>
+  </body>
+</html>

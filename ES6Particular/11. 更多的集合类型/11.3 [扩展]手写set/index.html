@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script src="./MySet.js"></script>
+    <script>
+      const mySet = new MySet(12); // Uncaught TypeError: number 12 is not iterable (cannot read property Symbol(Symbol.iterator))
+      console.log(mySet);
+    </script>
+  </body>
+</html>
