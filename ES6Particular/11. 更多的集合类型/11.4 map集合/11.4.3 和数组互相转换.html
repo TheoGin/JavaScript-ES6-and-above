@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      const map = new Map([['a', 1], ['b', 2]]);
+      console.log(map); // Map(2) {'a' => 1, 'b' => 2}
+
+      // [Symbol.iterator](): MapIterator<[K, V]>;
+      console.log(map[Symbol.iterator]()); // MapIterator {'a' => 1, 'b' => 2}
+
+      // entries(): MapIterator<[K, V]>;
+      console.log(map.entries()); // MapIterator {'a' => 1, 'b' => 2}
+
+      // map 转为数组
+      console.log([...map]); // [['a', 1], ['b', 2]]
+
+      // keys(): MapIterator<K>;
+      console.log(map.keys()); // MapIterator {'a', 'b'}
+      console.log([...map.keys()]); // ['a', 'b']
+
+      // values(): MapIterator<V>;
+      console.log(map.values()); // MapIterator {1, 2}
+      console.log([...map.values()]); // [1, 2]
+
+      // map 转为对象
+      // console.log({...map}); // {}
+      // fromEntries<T = any>(entries: Iterable<readonly [PropertyKey, T]>): { [k: string]: T; };
+      console.log(Object.fromEntries(map)); // { a: 1, b: 2 }
+    </script>
+  </body>
+</html>

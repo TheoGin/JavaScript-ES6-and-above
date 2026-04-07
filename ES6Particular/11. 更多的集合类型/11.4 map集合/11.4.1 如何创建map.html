@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // new (): Map<any, any>;
+      const map = new Map();
+      console.log(map); // Map(0) {size: 0}
+
+      // const map2 = new Map([11, 22, 33]); // Uncaught TypeError: Iterator value 11 is not an entry object
+      // new <K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
+      const map2 = new Map([['a', 1], ['b', 2], ['c', 3]]);
+      console.log(map2); // Map(3) {a => 1, b => 2, c => 3}
+    </script>
+  </body>
+</html>
