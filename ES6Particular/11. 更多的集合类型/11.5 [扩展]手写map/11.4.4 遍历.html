@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script src="./MyMap.js"></script>
+    <script>
+      const map = new MyMap([["a", 1], ["b", 2]]);
+      for (const mapItem of map) {
+        console.log(mapItem);
+        /**
+         * [a, 1]
+         * [b, 2]
+         */
+      }
+
+      console.log(map[Symbol.iterator]()); // MapIterator {'a' => 1, 'b' => 2}
+
+      // 1. for-of，每次迭代得到的是一个长度为2的数组
+      for (const [key, value] of map) {
+        console.log(`${ key }: ${ value }`);
+        /**
+         * a: 1
+         * b: 2
+         */
+      }
+      for (const [key, value] of map.entries()) {
+        console.log(`${ key }: ${ value }`);
+        /**
+         * a: 1
+         * b: 2
+         */
+      }
+
+      // 2. forEach，通过回调函数遍历
+      //   - 参数1：每一项的值
+      //   - 参数2：每一项的键
+      //   - 参数3：map本身
+      // forEach(callbackfn: (value: V, key: K, map: MyMap<K, V>) => void, thisArg?: any): void;
+      map.forEach((value, key, m) => {
+        console.log(`${ key }: ${ value } this: ${ m }`);
+        /**
+         * a: 1 this: [object MyMap]
+         * b: 2 this: [object MyMap]
+         */
+      });
+
+    </script>
+  </body>
+</html>

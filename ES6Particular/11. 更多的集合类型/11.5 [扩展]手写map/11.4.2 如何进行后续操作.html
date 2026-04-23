@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+  </head>
+  <body>
+    <script src="./MyMap.js"></script>
+    <script>
+      const map = new MyMap([["a", 1], ["b", 2]]);
+      // 1. size：只读属性，获取当前map中键的数量
+      console.log(map.size); // 2
+      console.log(map); // MyMap(2) {'a' => 1, 'b' => 2}
+
+      // 2. set(key: K, value: V): this：设置一个键值对，键和值可以是任何类型
+      map.set({}, 10);
+        console.log(map); // MyMap(3) {'a' => 1, 'b' => 2, {…} => 10}
+
+      //   2.1 如果键不存在，则添加一项
+      map
+        .set("c", 3)
+        .set("d", 4);
+      console.log(map); // MyMap(5) {'a' => 1, 'b' => 2, {…} => 10, 'c' => 3, 'd' => 4}
+
+      //   2.2 如果键已存在，则修改它的值
+      map.set("a", 123);
+      console.log(map); // MyMap(5) {'a' => 123, 'b' => 2, {…} => 10, 'c' => 3, 'd' => 4}
+
+      //   2.3 比较键的方式和set相同
+      map.set({}, 55);
+      console.log(map); // MyMap(6) {'a' => 1, 'b' => 2, {…} => 10, 'c' => 3, 'd' => 4, {…} => 55}
+
+      // 3. get(key: K): V | undefined: 根据一个键得到对应的值
+      console.log(map.get("a")); // 123
+      console.log(map.get({})); // undefined
+      const key = {}; // 要获取之前对象的值，需要用一个变量保存起来，因为 {} 本质是 new Object() 创建的
+      map.set(key, 111);
+      console.log(map.get(key)); // 111
+
+      // 4. has(key: K): boolean：判断某个键是否存在
+      console.log(map.has("a")); // true
+      console.log(map.has({})); // false
+
+      // 5. delete(key: K): boolean：删除指定的键
+      console.log(map.delete("b")); // true
+      console.log(map.delete({})); // false
+      console.log(map); // MyMap(6) {'a' => 123, {…} => 10, 'c' => 3, 'd' => 4, {…} => 55, {} => 111}
+
+      // 6. clear(): void: 清空map
+      map.clear();
+      console.log(map); // MyMap(0) {size: 0}
+
+    </script>
+  </body>
+</html>
