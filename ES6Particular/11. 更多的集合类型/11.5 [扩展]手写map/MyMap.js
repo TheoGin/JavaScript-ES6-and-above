@@ -8,7 +8,7 @@ class MyMap {
       return;
     }
 
-
+    // 验证是否是可迭代的对象
     if (typeof iterable[Symbol.iterator] !== "function") {
       throw new TypeError(`${ typeof iterable } ${ iterable } is not iterable (cannot read property Symbol(Symbol.iterator))`);
     }
@@ -74,7 +74,8 @@ class MyMap {
 
   _isEqual(value1, value2) {
     // +0 和 -0 严格相等的
-    if (value1 === value2) {
+    // if (value1 === value2) {
+    if (value1 === 0 && value2 === 0) {
       return true;
     }
 
